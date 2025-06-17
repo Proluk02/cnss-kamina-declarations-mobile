@@ -1,15 +1,21 @@
 
 import { useEffect } from 'react';
-import { Login } from './Login';
+import { Navigate } from 'react-router-dom';
+import { useAuth } from '@/components/AuthProvider';
 
 const Index = () => {
+  const { user } = useAuth();
+
   useEffect(() => {
-    // Ici vous pourriez vérifier si l'utilisateur est déjà connecté
-    // et le rediriger vers le dashboard si nécessaire
     console.log('Page d\'accueil chargée');
   }, []);
 
-  return <Login />;
+  // Rediriger vers le dashboard si connecté, sinon vers login
+  if (user) {
+    return <Navigate to="/dashboard" replace />;
+  }
+
+  return <Navigate to="/login" replace />;
 };
 
 export default Index;
